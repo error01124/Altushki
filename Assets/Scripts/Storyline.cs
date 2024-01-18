@@ -18,20 +18,22 @@ public class Storyline : IService
         _choiceLabelManager.ChoiceSelected += OnChoiceSelected;
     }
 
-    public void CreateScenes()
+    public async void CreateScenesAsync()
     {
         Debug.Log("CreateScenes");
-        ShowDialog("danya", "s");
+        await ShowDialogAsync("Даня", "пися");
+        await ShowDialogAsync("Даня", "попа");
+        await ShowDialogAsync("Даня", "какашечки");
     }
 
-    public void ShowDialog(string characterName, string speech)
+    public async Task ShowDialogAsync(string characterName, string speech)
     {
         _isAwating = true;
         _dialogManager.Show(characterName, speech);
-        WaitSceneEndAsync();
+        await WaitSceneEndAsync();
     }
 
-    private async void WaitSceneEndAsync()
+    private async Task WaitSceneEndAsync()
     {
         await Task.Run(() =>
         {

@@ -9,10 +9,10 @@ public class StartMenuWindow : Window
     private WindowManager _manager;
     private GameController _gameController;
 
-    private void Awake()
+    public void Init(WindowManager manager)
     {
+        _manager = manager;
         _gameController = ServiceLocator.Instance.Get<GameController>();
-        _manager = ServiceLocator.Instance.Get<WindowManager>();
     }
 
     private void OnEnable()
@@ -29,11 +29,14 @@ public class StartMenuWindow : Window
 
     private void OnSelectSaveButtonClicked()
     {
-        _manager.Show<SelectSaveWindow>();
+        // TODO
+        //_manager.Show();
     }
 
+    // TODO 
     private void StartGame()
     {
         _gameController.StartGame(null);
+        _manager.Hide(this);
     }
 }

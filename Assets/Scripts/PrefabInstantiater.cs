@@ -4,20 +4,18 @@ using UnityEngine;
 public class PrefabInstantiater : IService
 {
     private Dictionary<string, GameObject> _cachedPrefabs;
-    private Canvas _canvas;
 
-    public PrefabInstantiater(Canvas canvas)
+    public PrefabInstantiater()
     {
-        _canvas = canvas;
         _cachedPrefabs = new Dictionary<string, GameObject>();
     }
 
-    public T InstantiateUI<T>(string path) where T : MonoBehaviour
-    { 
-        T script = Instantiate<T>(path);
-        script.transform.SetParent(_canvas.transform);
-        return script;
-    }
+    //public T InstantiateUI<T>(string path) where T : MonoBehaviour
+    //{ 
+    //    T script = Instantiate<T>(path);
+    //    script.transform.SetParent(_canvas.transform);
+    //    return script;
+    //}
 
     public T Instantiate<T>(string path) where T : MonoBehaviour
     {

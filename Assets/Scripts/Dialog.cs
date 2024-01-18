@@ -44,12 +44,12 @@ public class Dialog : MonoBehaviour, ILabel
 
     private void OnEnable()
     {
-        _button.onClick.AddListener(OnClicked); 
+        _button?.onClick.AddListener(OnClicked); 
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(OnClicked);
+        _button?.onClick.RemoveListener(OnClicked);
     }
 
     private void OnClicked()

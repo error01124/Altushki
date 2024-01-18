@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ChoiceLabelManager : IService
+public class ChoiceLabelManager : MonoBehaviour, IService
 {
     public event Action<ChoiceLabel, Choice> ChoiceSelected;
 

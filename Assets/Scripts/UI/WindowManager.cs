@@ -12,8 +12,8 @@ public class WindowManager : MonoBehaviour, IService
     private Window _currentWindow;
 
     public void Init()
-    { 
-        
+    {
+        _startMenuWindow.Init(this);
     }
 
     public void Show<T>(T window) where T : Window

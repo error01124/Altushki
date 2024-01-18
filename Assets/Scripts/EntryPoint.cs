@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EntryPoint : MonoBehaviour
 {
+    [SerializeField] private Context _context;
     [SerializeField] private WindowManager _windowManager;
     [SerializeField] private DialogManager _dialogManager;
     [SerializeField] private ChoiceLabelManager _choiceLabelManager;
@@ -9,7 +10,7 @@ public class EntryPoint : MonoBehaviour
     private void Start()
     { 
         Init();
-        Get<WindowManager>().Show<StartMenuWindow>();
+        _windowManager.Show(_windowManager.StartMenuWindow);
     }
 
     private void Init()
@@ -18,17 +19,17 @@ public class EntryPoint : MonoBehaviour
         Register(new PrefabsPaths());
         Register(new PrefabInstantiater());
         Register(new ResourceLocator());
-        Register(Get<PrefabInstantiater>().Instantiate<Context>(Get<PrefabsPaths>().Context));
+        Register(_context);
         Register(new GameSettings());
         //_saver = new JSONSaver();
-        _windowManager.Init();
-        Register(_windowManager);
         _dialogManager.Init();
         Register(_dialogManager);
         _choiceLabelManager.Init();
         Register(_choiceLabelManager);
         Register(new Storyline());
         Register(new GameController());
+        _windowManager.Init();
+        Register(_windowManager);
     }
 
     private T Register<T>(T script) where T : IService
