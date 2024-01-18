@@ -15,10 +15,14 @@ public class Choice : MonoBehaviour
         _button = GetComponent<Button>();
     }
 
-    public void Init(ChoiceLabel label, string text)
+    public void Init(ChoiceLabel label)
     {
         _label = label;
-        _textArea.text = text;  
+    }
+
+    public void Setup(string text)
+    {
+        _textArea.text = text;
     }
 
     private void OnEnable()

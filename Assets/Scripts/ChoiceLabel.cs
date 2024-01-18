@@ -13,26 +13,27 @@ public class ChoiceLabel : MonoBehaviour, ILabel
     private PrefabsPaths _prefabsPaths;
     private ChoiceLabelManager _manager;
 
-    private void Awake()
+    public void Init(ChoiceLabelManager manager)
     {
+        _manager = manager;
         _prefabInstantiater = ServiceLocator.Instance.Get<PrefabInstantiater>();
         _prefabsPaths = ServiceLocator.Instance.Get<PrefabsPaths>();
     }
 
-    public void Init(ChoiceLabelManager manager, string[] choicesTexts)
+    public void Setup(string[] rows)
     {
-        if (choicesTexts == null || choicesTexts.Length == 0)
+        if (rows == null || rows.Length == 0)
         {
             Debug.LogError("Empty choices texts");
             return;
         }
 
-        _manager = manager;
-        _choices = _prefabInstantiater.InstantiateMany<Choice>(_prefabsPaths.ChoiceButton, choicesTexts.Length).ToList();
+        _choices = _prefabInstantiater.InstantiateMany<Choice>(_prefabsPaths.ChoiceButton, rows.Length).ToList();
 
         for (int i = 0; i < _choices.Count; i++)
         {
-            _choices[i].Init(this, choicesTexts[i]);
+            _choices[i].Init(this);
+            _choices[i].Setup(rows[i]);
         }
     }
 

@@ -20,15 +20,26 @@ public class Dialog : MonoBehaviour, ILabel
     private GameSettings _gameSetting;
     private DialogManager _manager;
 
-    public void Init(DialogManager manager, string characterName, string speech)
+    public void Init(DialogManager manager)
     {
         _manager = manager;
         _gameSetting = ServiceLocator.Instance.Get<GameSettings>();
+        _printDelay = _gameSetting.PrintDelay;
+        _Reset();
+    }
+
+    public void Setup(string characterName, string speech)
+    {
+        _Reset();  
         _speech = speech;
-        _characterNameArea.text = characterName;
+        _characterNameArea.text = characterName;        
+    }
+
+    private void _Reset()
+    {
+        _characterNameArea.text = string.Empty;
         _speechArea.text = string.Empty;
         _state = EnumState.None;
-        _printDelay = _gameSetting.PrintDelay;
     }
 
     private void OnEnable()

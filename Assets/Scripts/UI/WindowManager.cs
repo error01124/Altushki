@@ -2,30 +2,28 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WindowManager : IService
+public class WindowManager : MonoBehaviour, IService
 {
-    private Dictionary<Type, string> _windowsPaths;
+    public Window CurrentWindow => _currentWindow; 
+    public StartMenuWindow StartMenuWindow => _startMenuWindow;
+
+    [SerializeField] private StartMenuWindow _startMenuWindow;
+
     private Window _currentWindow;
-    private PrefabInstantiater _prefabInstantiater;
-    private PrefabsPaths _prefabsPaths;
 
-    public WindowManager()
-    {
-        _prefabInstantiater = ServiceLocator.Instance.Get<PrefabInstantiater>();
-        _prefabsPaths = ServiceLocator.Instance.Get<PrefabsPaths>();
-        _windowsPaths = new Dictionary<Type, string>();
-
-        _windowsPaths[typeof(StartMenuWindow)] = _prefabsPaths.StartMenu;
+    public void Init()
+    { 
+        
     }
 
-    public void Show<T>() where T : Window
+    public void Show<T>(T window) where T : Window
     {
-        T window = _prefabInstantiater.InstantiateUI<T>(_windowsPaths[typeof(T)]);
         _currentWindow = window;
+        _currentWindow.gameObject.SetActive(true);
     }
 
-    public void HideCurrent()
+    public void Hide<T>(T window) where T : Window
     {
-        GameObject.Destroy(_currentWindow.gameObject);
+        _currentWindow.gameObject.SetActive(false);
     }
 }

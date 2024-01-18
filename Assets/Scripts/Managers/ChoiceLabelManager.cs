@@ -5,20 +5,17 @@ public class ChoiceLabelManager : IService
 {
     public event Action<ChoiceLabel, Choice> ChoiceSelected;
 
-    private PrefabInstantiater _prefabInstantiater;
-    private PrefabsPaths _prefabsPaths;
+    [SerializeField] private ChoiceLabel _choiceLabel;
 
-    public ChoiceLabelManager()
+    public void Init()
     {
-        _prefabInstantiater = ServiceLocator.Instance.Get<PrefabInstantiater>();
-        _prefabsPaths = ServiceLocator.Instance.Get<PrefabsPaths>();
+        _choiceLabel.Init(this);
     }
 
-    public ChoiceLabel Show(string[] _choicesTexts)
+    public void Show(string[] rows)
     {
-        ChoiceLabel choiceLabel = _prefabInstantiater.InstantiateUI<ChoiceLabel>(_prefabsPaths.ChoiceLabel);
-        choiceLabel.Init(this, _choicesTexts);
-        return choiceLabel;
+        _choiceLabel.gameObject.SetActive(true);
+        _choiceLabel.Setup(rows);
     }
 
     public void OnChoiceSelected(ChoiceLabel choiceLabel, Choice choice)
@@ -29,6 +26,6 @@ public class ChoiceLabelManager : IService
 
     public void Hide(ChoiceLabel choiceLabel)
     {
-        GameObject.Destroy(choiceLabel.gameObject);
+        choiceLabel.gameObject.SetActive(false);
     }
 }

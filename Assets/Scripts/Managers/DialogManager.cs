@@ -1,24 +1,21 @@
 using System;
 using UnityEngine;
 
-public class DialogManager : IService
+public class DialogManager : MonoBehaviour, IService
 {
     public event Action<Dialog> DialogSkiped;
 
-    private PrefabInstantiater _prefabInstantiater;
-    private PrefabsPaths _prefabsPaths;
+    [SerializeField] private Dialog _dialog;
 
-    public DialogManager()
+    public void Init()
     {
-        _prefabInstantiater = ServiceLocator.Instance.Get<PrefabInstantiater>();
-        _prefabsPaths = ServiceLocator.Instance.Get<PrefabsPaths>();
+        _dialog.Init(this);
     }
 
-    public Dialog Show(string characterName, string speech)
+    public void Show(string characterName, string speech)
     {
-        Dialog dialog = _prefabInstantiater.InstantiateUI<Dialog>(_prefabsPaths.Dialog);
-        dialog.Init(this, characterName, speech);
-        return dialog;
+        _dialog.gameObject.SetActive(true);
+        _dialog.Setup(characterName, speech);
     }
 
     public void OnDialogSkiped(Dialog dialog)
@@ -29,6 +26,6 @@ public class DialogManager : IService
 
     public void Hide(Dialog dialog)
     {
-        GameObject.Destroy(dialog.gameObject);
+        dialog.gameObject.SetActive(false);
     }
 }
