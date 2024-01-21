@@ -21,7 +21,7 @@ public class ChoiceLabelManager : MonoBehaviour, IService
     public void OnChoiceSelected(ChoiceLabel choiceLabel, Choice choice)
     {
         ChoiceSelected?.Invoke(choiceLabel, choice);
-        Hide(choiceLabel);
+        //Hide(choiceLabel);
     }
 
     public void Hide(ChoiceLabel choiceLabel)

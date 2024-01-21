@@ -6,6 +6,9 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private WindowManager _windowManager;
     [SerializeField] private DialogManager _dialogManager;
     [SerializeField] private ChoiceLabelManager _choiceLabelManager;
+    [SerializeField] private BackgroundManager _backgroundManager;
+    [SerializeField] private MusicPlayer _musicPlayer;
+    [SerializeField] private CharacterManager _characterManager;
 
     private void Start()
     { 
@@ -26,6 +29,12 @@ public class EntryPoint : MonoBehaviour
         Register(_dialogManager);
         _choiceLabelManager.Init();
         Register(_choiceLabelManager);
+        _backgroundManager.Init();
+        Register(_backgroundManager);
+        _musicPlayer.Init();
+        Register(_musicPlayer);
+        _characterManager.Init();
+        Register(_characterManager);
         Register(new Storyline());
         Register(new GameController());
         _windowManager.Init();

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Text;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ public class Dialog : MonoBehaviour, ILabel
     private EnumState _state;
     private GameSettings _gameSetting;
     private DialogManager _manager;
+    private DialogShowAction _showAction;
 
     public void Init(DialogManager manager)
     {
@@ -28,11 +30,14 @@ public class Dialog : MonoBehaviour, ILabel
         _Reset();
     }
 
-    public void Setup(string characterName, string speech)
+    public ISceneAction Show(string characterName, string speech)
     {
         _Reset();  
         _speech = speech;
-        _characterNameArea.text = characterName;        
+        _characterNameArea.text = characterName;
+        _showAction = new DialogShowAction(this);
+        PrintWithDelay();
+        return _showAction;
     }
 
     private void _Reset()
@@ -62,8 +67,9 @@ public class Dialog : MonoBehaviour, ILabel
         {
             PrintImmediately();
         }
-        else if (_state == EnumState.Complited)
+        else if (_state == EnumState.Completed)
         {
+            _showAction.Complete();
             _manager.OnDialogSkiped(this);
         }
     }
@@ -81,7 +87,7 @@ public class Dialog : MonoBehaviour, ILabel
         }
 
         _speechArea.text = _speech;
-        _state = EnumState.Complited;
+        _state = EnumState.Completed;
     }
 
     private IEnumerator GetPrintAnimation()
@@ -96,13 +102,13 @@ public class Dialog : MonoBehaviour, ILabel
             yield return new WaitForSeconds(_printDelay);
         }
 
-        _state = EnumState.Complited;
+        _state = EnumState.Completed;
     }
 
     public enum EnumState
     {
         None,
         Printing,
-        Complited
+        Completed
     }
 }

@@ -17,14 +17,14 @@ public class StartMenuWindow : Window
 
     private void OnEnable()
     {
-        _selectSaveButton.onClick.AddListener(OnSelectSaveButtonClicked);
-        _startButton.onClick.AddListener(StartGame);
+        _selectSaveButton?.onClick.AddListener(OnSelectSaveButtonClicked);
+        _startButton?.onClick.AddListener(StartGame);
     }
 
     private void OnDisable()
     {
-        _selectSaveButton.onClick.RemoveListener(OnSelectSaveButtonClicked);
-        _startButton.onClick.RemoveListener(StartGame);
+        _selectSaveButton?.onClick.RemoveListener(OnSelectSaveButtonClicked);
+        _startButton?.onClick.RemoveListener(StartGame);
     }
 
     private void OnSelectSaveButtonClicked()

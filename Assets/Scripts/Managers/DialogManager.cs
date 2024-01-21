@@ -12,20 +12,20 @@ public class DialogManager : MonoBehaviour, IService
         _dialog.Init(this);
     }
 
-    public void Show(string characterName, string speech)
+    public ISceneAction Show(string characterName, string speech)
     {
         _dialog.gameObject.SetActive(true);
-        _dialog.Setup(characterName, speech);
+        return _dialog.Show(characterName, speech);
     }
 
     public void OnDialogSkiped(Dialog dialog)
     {
         DialogSkiped?.Invoke(dialog);
-        Hide(dialog);
+        //Hide(dialog);
     }
 
-    public void Hide(Dialog dialog)
+    public void Hide()
     {
-        dialog.gameObject.SetActive(false);
+        _dialog.gameObject.SetActive(false);
     }
 }
