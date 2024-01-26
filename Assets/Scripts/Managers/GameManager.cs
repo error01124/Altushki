@@ -12,7 +12,7 @@ public class GameController : IService
     public void StartGame(ISaveData? data)
     {
         Debug.Log("StartGame");
-        _storyline.CreateScenesAsync();
+        _storyline.Start();
     }
 
     public void StopGame()

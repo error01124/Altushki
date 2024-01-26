@@ -1,14 +1,16 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class Choice : MonoBehaviour
+public class Choice : SceneObject<Choice>
 {
     [SerializeField] private TMP_Text _textArea;
 
     private ChoiceLabel _label;
     private Button _button;
+    private string _text;
 
     private void Awake()
     {
@@ -20,22 +22,35 @@ public class Choice : MonoBehaviour
         _label = label;
     }
 
-    public void Setup(string text)
+    public Choice Setup(string id, string text)
     {
-        _textArea.text = text;
+        _name = id;
+        _text = text;
+        return this;
+    }
+
+    public override IEnumerator Show()
+    {
+        _textArea.text = _text;
+        yield return null;
+    }
+
+    public override IEnumerator Hide()
+    {
+        yield return null;
     }
 
     private void OnEnable()
     {
-        _button.onClick.AddListener(OnSeleced);
+        _button.onClick.AddListener(OnSelected);
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(OnSeleced);
+        _button.onClick.RemoveListener(OnSelected);
     }
 
-    private void OnSeleced()
+    private void OnSelected()
     {
         _label.OnChoiceSelected(this);
     }

@@ -4,11 +4,11 @@ public class EntryPoint : MonoBehaviour
 {
     [SerializeField] private Context _context;
     [SerializeField] private WindowManager _windowManager;
-    [SerializeField] private DialogManager _dialogManager;
-    [SerializeField] private ChoiceLabelManager _choiceLabelManager;
-    [SerializeField] private BackgroundManager _backgroundManager;
+    [SerializeField] private Dialog _dialog;
+    [SerializeField] private ChoiceLabel _choiceLabel;
+    [SerializeField] private Background _background;
     [SerializeField] private MusicPlayer _musicPlayer;
-    [SerializeField] private CharacterManager _characterManager;
+    [SerializeField] private Characters _characters;
 
     private void Start()
     { 
@@ -25,16 +25,16 @@ public class EntryPoint : MonoBehaviour
         Register(_context);
         Register(new GameSettings());
         //_saver = new JSONSaver();
-        _dialogManager.Init();
-        Register(_dialogManager);
-        _choiceLabelManager.Init();
-        Register(_choiceLabelManager);
-        _backgroundManager.Init();
-        Register(_backgroundManager);
+        _dialog.Init();
+        Register(_dialog);
+        _choiceLabel.Init();
+        Register(_choiceLabel);
+        _background.Init();
+        Register(_background);
         _musicPlayer.Init();
         Register(_musicPlayer);
-        _characterManager.Init();
-        Register(_characterManager);
+        _characters.Init();
+        Register(_characters);
         Register(new Storyline());
         Register(new GameController());
         _windowManager.Init();
