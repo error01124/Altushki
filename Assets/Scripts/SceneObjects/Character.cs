@@ -15,24 +15,34 @@ public class Character : SceneObject<Character>, IService
 
     public Character Setup(string imagePath)
     {
+        Clear();
         _imageSprite = Resources.Load<Sprite>(imagePath);
         return this;
     }
 
     public override IEnumerator Show()
     {
-        _image.enabled = true;
+        _enabled = true;
+        Debug.Log("Character Show");
         _image.sprite = _imageSprite;
+        _image.enabled = true;
 
         if (HasAnimation())
         {
-            yield return StartCoroutine(PlayAnimation());
+            yield return PlayAnimation(EnumAnimationSuffix.Show);
         }
+
+        Debug.Log("Character Show Finish");
     }
 
     public override IEnumerator Hide()
     {
+        Clear();
         _image.enabled = false;
-        return null;
+
+        if (HasAnimation())
+        {
+            yield return PlayAnimation(EnumAnimationSuffix.Hide); 
+        }
     }
 }

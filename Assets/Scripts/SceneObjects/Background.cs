@@ -15,22 +15,28 @@ public class Background : SceneObject<Background>, IService
 
     public Background Setup(string imagePath)
     {
+        Clear();
         _imageSprite = Resources.Load<Sprite>(imagePath);
         return this;
     }
 
     public override IEnumerator Show()
     {
+        _enabled = true;
         _image.sprite = _imageSprite;
 
         if (HasAnimation())
         {
-            yield return StartCoroutine(PlayAnimation());
+            yield return PlayAnimation(EnumAnimationSuffix.Show);
+            Debug.Log("Background Show Finish");
+            Debug.Log("Background AnimationEnded - " + _animationEnded);
         }
     }
 
-    public override IEnumerator Hide()
+    //remove
+    protected override void OnClicked()
     {
-        return null;
-    }
+        Debug.Log(">>> Backgroudn Enabled = " + _enabled);
+        StopAnimation();
+    } 
 }

@@ -3,7 +3,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Dialog : SceneObject<Dialog>, IService
 {
@@ -11,12 +10,10 @@ public class Dialog : SceneObject<Dialog>, IService
 
     [SerializeField] private TMP_Text _speakerNameArea;
     [SerializeField] private TMP_Text _speechArea;
-    [SerializeField] private Button _button;
 
     private float _printDelay;
     private string _speakerName;
     private string _speech;
-    private Coroutine _printWithDelayCoroutine;
     private EnumState _state;
     private GameSettings _gameSetting;
 
@@ -38,47 +35,40 @@ public class Dialog : SceneObject<Dialog>, IService
 
     public override IEnumerator Show()
     {
+        _enabled = true;
+        Debug.Log("Dialog show");
+
         if (HasAnimation())
         {
-            Debug.Log("animating");
             _state = EnumState.Animating;
-            yield return StartCoroutine(PlayAnimation());
+            yield return PlayAnimation(EnumAnimationSuffix.Show);
             _state = EnumState.Animated;
-            Debug.Log("animated");
         }
 
         _speakerNameArea.text = _speakerName;
-        _printWithDelayCoroutine = StartCoroutine(PrintWithDelay());
-        yield return _printWithDelayCoroutine;
+        yield return PrintWithDelay();
         yield return new WaitUntil(() => _state == EnumState.Skiped);
     }
 
-    public override IEnumerator Hide()
+    public override void Clear()
     {
-        return null;
-    }
-
-    public void Clear()
-    {
-        _animation = EnumAnimation.None;
+        base.Clear();
         _state = EnumState.None;
         _speakerNameArea.text = string.Empty;
         _speechArea.text = string.Empty;
     }
 
-    private void OnEnable()
+    protected override void OnClicked()
     {
-        _button?.onClick.AddListener(OnClicked); 
-    }
+        Debug.Log("==============" + _state);
+        Debug.Log(">>> Dialog Enabled = " + _enabled);
 
-    private void OnDisable()
-    {
-        _button?.onClick.RemoveListener(OnClicked);
-    }
-
-    private void OnClicked()
-    { 
-        if (_state == EnumState.Printing)
+        if (_state == EnumState.Animating)
+        {
+            StopAnimation();
+            _state = EnumState.Animated;
+        }
+        else if (_state == EnumState.Printing)
         {
             PrintImmediately();
         }
@@ -95,9 +85,12 @@ public class Dialog : SceneObject<Dialog>, IService
 
         for (int i = 0; i < _speech.Length; i++)
         {
-            stringBuilder.Append(_speech[i]);
-            _speechArea.text = stringBuilder.ToString();
-            yield return new WaitForSeconds(_printDelay);
+            if (_state == EnumState.Printing)
+            {
+                stringBuilder.Append(_speech[i]);
+                _speechArea.text = stringBuilder.ToString();
+                yield return new WaitForSeconds(_printDelay);
+            }
         }
 
         _state = EnumState.Printed;
@@ -105,11 +98,6 @@ public class Dialog : SceneObject<Dialog>, IService
 
     public void PrintImmediately()
     {
-        if (_state == EnumState.Printing)
-        {
-            StopCoroutine(_printWithDelayCoroutine);
-        }
-
         _speechArea.text = _speech;
         _state = EnumState.Printed;
     }

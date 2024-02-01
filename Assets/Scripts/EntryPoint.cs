@@ -24,6 +24,7 @@ public class EntryPoint : MonoBehaviour
         Register(new ResourceLocator());
         Register(_context);
         Register(new GameSettings());
+        Register(new Keybinds());
         //_saver = new JSONSaver();
         _dialog.Init();
         Register(_dialog);

@@ -12,18 +12,17 @@ public class Choice : SceneObject<Choice>
     private Button _button;
     private string _text;
 
-    private void Awake()
-    {
-        _button = GetComponent<Button>();
-    }
-
     public void Init(ChoiceLabel label)
     {
+        base.Init();
+        _button = GetComponent<Button>();
         _label = label;
+        Clear();
     }
 
     public Choice Setup(string id, string text)
     {
+        Clear();
         _name = id;
         _text = text;
         return this;
@@ -31,13 +30,13 @@ public class Choice : SceneObject<Choice>
 
     public override IEnumerator Show()
     {
+        _enabled = true;
         _textArea.text = _text;
-        yield return null;
-    }
 
-    public override IEnumerator Hide()
-    {
-        yield return null;
+        if (HasAnimation())
+        {
+            yield return PlayAnimation(EnumAnimationSuffix.Show);
+        }
     }
 
     private void OnEnable()

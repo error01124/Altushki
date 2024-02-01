@@ -44,6 +44,4 @@ public class Characters : MonoBehaviour, IService
 
         return null;
     }
-
-    
 }
