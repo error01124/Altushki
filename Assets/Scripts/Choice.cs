@@ -8,35 +8,24 @@ public class Choice : SceneObject<Choice>
 {
     [SerializeField] private TMP_Text _textArea;
 
-    private ChoiceLabel _label;
+    private ChoiceWindow _window;
     private Button _button;
     private string _text;
 
-    public void Init(ChoiceLabel label)
+    public void Init(ChoiceWindow window)
     {
         base.Init();
         _button = GetComponent<Button>();
-        _label = label;
+        _window = window;
         Clear();
     }
 
-    public Choice Setup(string id, string text)
+    public IEnumerator Display(string id, string text)
     {
         Clear();
         _name = id;
-        _text = text;
-        return this;
-    }
-
-    public override IEnumerator Show()
-    {
-        _enabled = true;
         _textArea.text = _text;
-
-        if (HasAnimation())
-        {
-            yield return PlayAnimation(EnumAnimationSuffix.Show);
-        }
+        yield return null;
     }
 
     private void OnEnable()
@@ -51,6 +40,6 @@ public class Choice : SceneObject<Choice>
 
     private void OnSelected()
     {
-        _label.OnChoiceSelected(this);
+        _window.OnChoiceSelected(this);
     }
 }

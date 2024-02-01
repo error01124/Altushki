@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Text;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-public class Dialog : SceneObject<Dialog>, IService
+public class DialogWindow : SceneObject<DialogWindow>, IService
 {
     public EnumState State => _state;
 
@@ -12,7 +11,6 @@ public class Dialog : SceneObject<Dialog>, IService
     [SerializeField] private TMP_Text _speechArea;
 
     private float _printDelay;
-    private string _speakerName;
     private string _speech;
     private EnumState _state;
     private GameSettings _gameSetting;
@@ -25,18 +23,18 @@ public class Dialog : SceneObject<Dialog>, IService
         Clear();
     }
 
-    public Dialog Setup(string speakerName, string speech)
+    public IEnumerator Display(string speakerName, string speech)
     {
         Clear();
-        _speakerName = speakerName;
+        _speakerNameArea.text = speakerName;
         _speech = speech;
-        return this;
+        yield return PrintWithDelay();
+        yield return new WaitUntil(() => _state == EnumState.Skiped);
     }
 
     public override IEnumerator Show()
     {
         _enabled = true;
-        Debug.Log("Dialog show");
 
         if (HasAnimation())
         {
@@ -44,10 +42,6 @@ public class Dialog : SceneObject<Dialog>, IService
             yield return PlayAnimation(EnumAnimationSuffix.Show);
             _state = EnumState.Animated;
         }
-
-        _speakerNameArea.text = _speakerName;
-        yield return PrintWithDelay();
-        yield return new WaitUntil(() => _state == EnumState.Skiped);
     }
 
     public override void Clear()
@@ -60,9 +54,6 @@ public class Dialog : SceneObject<Dialog>, IService
 
     protected override void OnClicked()
     {
-        Debug.Log("==============" + _state);
-        Debug.Log(">>> Dialog Enabled = " + _enabled);
-
         if (_state == EnumState.Animating)
         {
             StopAnimation();

@@ -17,11 +17,11 @@ public class Characters : MonoBehaviour, IService
         }
     }
 
-    public Character Setup(string imagePath, EnumPosition position)
-    {
-        Character character = GetCharacterByPosition(position);
-        return character.Setup(imagePath);
-    }
+    //public IEnumerator Display(string imagePath, EnumPosition position)
+    //{
+    //    Character character = GetCharacterByPosition(position);
+    //    return character.Display(imagePath);
+    //}
 
     public IEnumerable<Character> GetCharacters()
     {
@@ -30,7 +30,7 @@ public class Characters : MonoBehaviour, IService
         yield return _rightCharacter;
     }
 
-    public Character GetCharacterByPosition(EnumPosition position)
+    public Character GetCharacter(EnumPosition position)
     {
         switch (position)
         {

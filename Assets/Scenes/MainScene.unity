@@ -136,9 +136,9 @@ GameObject:
   - component: {fileID: 106346557}
   - component: {fileID: 106346556}
   - component: {fileID: 106346555}
-  - component: {fileID: 106346552}
+  - component: {fileID: 106346559}
   m_Layer: 5
-  m_Name: ChoiceLabel
+  m_Name: ChoiceWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,18 +164,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -1890.7314, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &106346552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106346550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2945ae0fef7ebe24baa52040d0f4d251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &106346555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +242,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106346550}
   m_CullTransparentMesh: 1
+--- !u!114 &106346559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106346550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6cca0ef2272c0429ce1734e835aaec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &291148341
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +570,7 @@ MonoBehaviour:
   _context: {fileID: 0}
   _windowManager: {fileID: 0}
   _dialog: {fileID: 0}
-  _choiceLabel: {fileID: 0}
+  _choiceWindiw: {fileID: 0}
   _background: {fileID: 0}
   _musicPlayer: {fileID: 0}
   _characters: {fileID: 0}
@@ -1192,7 +1192,7 @@ MonoBehaviour:
   _context: {fileID: 2084431683}
   _windowManager: {fileID: 1418233393}
   _dialog: {fileID: 8907109388642403999}
-  _choiceLabel: {fileID: 106346552}
+  _choiceWindiw: {fileID: 106346559}
   _background: {fileID: 2140511130}
   _musicPlayer: {fileID: 942858377}
   _characters: {fileID: 1264028918}

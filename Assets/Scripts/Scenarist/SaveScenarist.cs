@@ -7,7 +7,7 @@ public class SaveScenarist : IScenarist
         _storyData = ServiceLocator.Instance.Get<StoryData>();
     }
 
-    public string GetChoiceName(ChoiceLabel choiceLabel)
+    public string GetChoiceName(ChoiceWindow choiceLabel)
     {
         return (string) _storyData.GetSceneObjectResult(choiceLabel.Name);
     }

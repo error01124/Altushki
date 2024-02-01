@@ -24,7 +24,6 @@ public abstract class SceneObject<T> : MonoBehaviour where T : SceneObject<T>
     {
         _animation = EnumAnimation.None;
         _animationEnded = false;
-        _enabled = false;
         _name = string.Empty;
     }
 
@@ -34,7 +33,6 @@ public abstract class SceneObject<T> : MonoBehaviour where T : SceneObject<T>
         {
             if (_keybinds.Interact())
             {
-                Debug.Log("абоба");
                 OnClicked();
             }
         }
@@ -101,7 +99,6 @@ public abstract class SceneObject<T> : MonoBehaviour where T : SceneObject<T>
 
     protected virtual void OnClicked()
     {
-        //Debug.Log("button clicked");
         if (HasAnimation())
         {
             StopAnimation();

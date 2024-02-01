@@ -4,8 +4,8 @@ public class EntryPoint : MonoBehaviour
 {
     [SerializeField] private Context _context;
     [SerializeField] private WindowManager _windowManager;
-    [SerializeField] private Dialog _dialog;
-    [SerializeField] private ChoiceLabel _choiceLabel;
+    [SerializeField] private DialogWindow _dialog;
+    [SerializeField] private ChoiceWindow _choiceWindiw;
     [SerializeField] private Background _background;
     [SerializeField] private MusicPlayer _musicPlayer;
     [SerializeField] private Characters _characters;
@@ -28,8 +28,8 @@ public class EntryPoint : MonoBehaviour
         //_saver = new JSONSaver();
         _dialog.Init();
         Register(_dialog);
-        _choiceLabel.Init();
-        Register(_choiceLabel);
+        _choiceWindiw.Init();
+        Register(_choiceWindiw);
         _background.Init();
         Register(_background);
         _musicPlayer.Init();
