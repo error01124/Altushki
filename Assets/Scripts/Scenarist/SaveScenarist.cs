@@ -4,7 +4,8 @@ public class SaveScenarist : IScenarist
 
     public SaveScenarist()
     {
-        _storyData = ServiceLocator.Instance.Get<StoryData>();
+        //TODO
+        //_storyData = ServiceLocator.Instance.Get<StoryData>();
     }
 
     public string GetChoiceName(ChoiceLabel choiceLabel)

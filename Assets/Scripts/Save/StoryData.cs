@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 
-public class StoryData : IService
+[Serializable]
+public class StoryData
 {
     private Dictionary<string, object> _sceneObjectsResults;
 

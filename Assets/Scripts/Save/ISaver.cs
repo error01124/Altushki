@@ -4,5 +4,5 @@ public interface ISaver : IService
 
     public void SaveData(ISaveData data);
 
-    public ISaveData GetData(int id);
+    public ISaveData GetCachedData(int id);
 }

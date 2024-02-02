@@ -32,7 +32,7 @@ public class Character : SceneObject<Character>, IService
             yield return PlayAnimation(EnumAnimationSuffix.Show);
         }
 
-        Debug.Log("Character Show Finish");
+        //Debug.Log("Character Show Finish");
     }
 
     public override IEnumerator Hide()

@@ -19,7 +19,7 @@ public class Characters : MonoBehaviour, IService
 
     public Character Setup(string imagePath, EnumPosition position)
     {
-        Character character = GetCharacterByPosition(position);
+        Character character = GetCharacter(position);
         return character.Setup(imagePath);
     }
 
@@ -30,7 +30,7 @@ public class Characters : MonoBehaviour, IService
         yield return _rightCharacter;
     }
 
-    public Character GetCharacterByPosition(EnumPosition position)
+    public Character GetCharacter(EnumPosition position)
     {
         switch (position)
         {

@@ -5,9 +5,9 @@ public interface ISaveData
 {
     public TimeSpan GetSaveTime();
 
-    public Sprite GetScreen();
+    public Sprite GetScreenshot();
 
-    public StoryData GetGameData();
+    public StoryData GetStoryData();
 
     public int GetSceneId();
 }

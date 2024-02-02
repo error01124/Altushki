@@ -18,9 +18,7 @@ public class ChoiceLabel : SceneObject<ChoiceLabel>, IService
 
     public override void Init()
     {
-        Debug.Log("pre init");
         base.Init();
-        Debug.Log("post init");
         _prefabInstantiater = ServiceLocator.Instance.Get<PrefabInstantiater>();
         _prefabsPaths = ServiceLocator.Instance.Get<PrefabsPaths>();
         _choices = new List<Choice>();

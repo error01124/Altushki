@@ -1,25 +1,20 @@
 using System;
 using UnityEngine;
 
-public class SaveData : ISaveData
+public class SaveData
 {
-    public StoryData GetGameData()
-    {
-        return null;
-    }
+    public Sprite Screenshot => _screenshot;
+    public StoryData StoryData => _storyData;
+    public DateTime SaveTime => _saveTime;
 
-    public TimeSpan GetSaveTime()
-    {
-        throw new NotImplementedException();
-    }
+    private Sprite _screenshot;
+    private StoryData _storyData;
+    private DateTime _saveTime;
 
-    public int GetSceneId()
+    public SaveData(Sprite screenshot, StoryData storyData, DateTime saveTime)
     {
-        return 0;
-    }
-
-    public Sprite GetScreen()
-    {
-        return null;
+        _screenshot = screenshot;
+        _storyData = storyData;
+        _saveTime = saveTime;
     }
 }

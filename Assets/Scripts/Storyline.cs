@@ -32,7 +32,7 @@ public class Storyline : IService
 
     public void Start()
     {
-        _context.StartCoroutine(InitScene());
+        var coroutine = _context.StartCoroutine(InitScene());
     }
 
     private IEnumerator InitScene()
@@ -40,14 +40,14 @@ public class Storyline : IService
         yield return Show(_background.Setup("Sprites/Postal1").With(EnumAnimation.Blackout));
         yield return Show(_characters.Setup("Sprites/Characters/Lena/Calm", EnumPosition.Left).With(EnumAnimation.Blackout));
         yield return Show(_dialog.Setup("Лена", "За твои деяния тебя ожидает единственный закономерный исход. Улизнуть не удастся.").With(EnumAnimation.Blackout));
-        yield return Hide(_characters.GetCharacterByPosition(EnumPosition.Left));
+        yield return Hide(_characters.GetCharacter(EnumPosition.Left));
         yield return Hide(_dialog);
         yield return Hide(_background.With(EnumAnimation.Blackout));
         yield return Show(_background.Setup("Sprites/Postal2").With(EnumAnimation.Blackout));
         yield return Show(_characters.Setup("Sprites/Characters/Lena/Calm", EnumPosition.Left).With(EnumAnimation.Blackout));
-        yield return Show(_dialog.Setup("Лена", "Прощай"));
+        yield return Show(_dialog.Setup("Лена", "Прощай").With(EnumAnimation.Blackout));
         yield return Hide(_dialog);
-        yield return Hide(_characters.GetCharacterByPosition(EnumPosition.Left));
+        yield return Hide(_characters.GetCharacter(EnumPosition.Left));
         yield return Hide(_background);
     }
 

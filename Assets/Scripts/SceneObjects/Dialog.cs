@@ -36,7 +36,7 @@ public class Dialog : SceneObject<Dialog>, IService
     public override IEnumerator Show()
     {
         _enabled = true;
-        Debug.Log("Dialog show");
+        //Debug.Log("Dialog show");
 
         if (HasAnimation())
         {
@@ -60,8 +60,8 @@ public class Dialog : SceneObject<Dialog>, IService
 
     protected override void OnClicked()
     {
-        Debug.Log("==============" + _state);
-        Debug.Log(">>> Dialog Enabled = " + _enabled);
+        //Debug.Log("==============" + _state);
+        //Debug.Log(">>> Dialog Enabled = " + _enabled);
 
         if (_state == EnumState.Animating)
         {
