@@ -6,9 +6,11 @@ using UnityEngine;
 
 public class ChoiceLabel : SceneObject<ChoiceLabel>, IService
 {
+    public string Name => _name;
     public Choice Result => _result;
     public event Action<ChoiceLabel, Choice> ChoiceSelected;
 
+    private string _name;
     private PrefabInstantiater _prefabInstantiater;
     private PrefabsPaths _prefabsPaths;
     private List<Choice> _choices;
@@ -26,8 +28,9 @@ public class ChoiceLabel : SceneObject<ChoiceLabel>, IService
         Clear();
     }
 
-    public ChoiceLabel Setup(string[] names, string[] rows)
+    public ChoiceLabel Setup(string name, string[] names, string[] rows)
     {
+        _name = name;
         _rows = rows.ToList();
         Clear();
         return this;

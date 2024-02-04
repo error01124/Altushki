@@ -13,7 +13,7 @@ public class EntryPoint : MonoBehaviour
     private void Start()
     { 
         Init();
-        _windowManager.Show(_windowManager.StartMenuWindow);
+        _windowManager.Open(_windowManager.StartMenuWindow);
     }
 
     private void Init()
@@ -25,7 +25,7 @@ public class EntryPoint : MonoBehaviour
         Register(_context);
         Register(new GameSettings());
         Register(new Keybinds());
-        //_saver = new JSONSaver();
+        Register(new Saver());
         _dialog.Init();
         Register(_dialog);
         _choiceLabel.Init();
@@ -36,7 +36,6 @@ public class EntryPoint : MonoBehaviour
         Register(_musicPlayer);
         _characters.Init();
         Register(_characters);
-        Register(new Storyline());
         Register(new GameController());
         _windowManager.Init();
         Register(_windowManager);

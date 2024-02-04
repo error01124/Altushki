@@ -5,11 +5,11 @@ using UnityEngine.UI;
 //[RequireComponent(typeof(Button))]
 public abstract class SceneObject<T> : MonoBehaviour where T : SceneObject<T>
 {
-    public string Name => _name;
+    public int Id => _id;
 
     protected Animator _animator;
     protected EnumAnimation _animation;
-    protected string _name;
+    protected int _id;
     protected bool _animationEnded;
     protected Keybinds _keybinds;
     protected bool _enabled;
@@ -20,12 +20,16 @@ public abstract class SceneObject<T> : MonoBehaviour where T : SceneObject<T>
         _keybinds = ServiceLocator.Instance.Get<Keybinds>();
     }
 
+    public void IncreaseId()
+    {
+        _id++;
+    }
+
     public virtual void Clear()
     {
         _animation = EnumAnimation.None;
         _animationEnded = false;
         _enabled = false;
-        _name = string.Empty;
     }
 
     private void Update()
@@ -34,7 +38,6 @@ public abstract class SceneObject<T> : MonoBehaviour where T : SceneObject<T>
         {
             if (_keybinds.Interact())
             {
-                Debug.Log("абоба");
                 OnClicked();
             }
         }

@@ -37,6 +37,6 @@ public class StartMenuWindow : Window
     private void StartGame()
     {
         _gameController.StartGame(null);
-        _manager.Hide(this);
+        _manager.Close(this);
     }
 }

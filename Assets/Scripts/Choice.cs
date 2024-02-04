@@ -6,11 +6,14 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class Choice : SceneObject<Choice>
 {
+    public string Name => _name;
+
     [SerializeField] private TMP_Text _textArea;
 
     private ChoiceLabel _label;
     private Button _button;
     private string _text;
+    private string _name;
 
     public void Init(ChoiceLabel label)
     {
@@ -20,10 +23,10 @@ public class Choice : SceneObject<Choice>
         Clear();
     }
 
-    public Choice Setup(string id, string text)
+    public Choice Setup(string name, string text)
     {
         Clear();
-        _name = id;
+        _name = name;
         _text = text;
         return this;
     }

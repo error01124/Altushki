@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class Saver
+public class Saver : IService
 {
     public int CachedSavesCount => _cachedSaves.Count;
 
@@ -47,8 +47,8 @@ public class Saver
         texture.LoadImage(screenshotBytes);
         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
         
-        FileInfo fileInfo = new FileInfo(Path.Combine(savePath, "SaveData"));
-        DateTime saveTime = fileInfo.LastWriteTime;
+        FileInfo file = new FileInfo(Path.Combine(savePath, "SaveData"));
+        DateTime saveTime = file.LastWriteTime;
 
         string json = File.ReadAllText(Path.Combine(savePath, "SaveData.json"));
         StoryData storyData = JsonUtility.FromJson<StoryData>(json);
@@ -57,26 +57,20 @@ public class Saver
         return saveData;
     }
 
-    public void WriteSave(Sprite screenshot, StoryData storyData, DateTime time)
+    public void WriteSave(StoryData storyData, DateTime time)
     {
-        string saveDirectoryPath = Path.Combine(_savesPath, $"save_{DateTime.Now}");
-        var saveDirectoryInfo = new DirectoryInfo(saveDirectoryPath);
+        string savePath = Path.Combine(_savesPath, $"save_{DateTime.Now}");
+        var saveDirectory = new DirectoryInfo(savePath);
 
-        if (!saveDirectoryInfo.Exists)
+        if (!saveDirectory.Exists)
         {
-            saveDirectoryInfo.Create();
+            saveDirectory.Create();
         }
 
-        string screenshotFilePath = Path.Combine(_savesPath, "Screenshot");
-        var screenshotBytes = screenshot.texture.EncodeToPNG();
+        string screenshotFilePath = Path.Combine(savePath, "Screenshot.png");
+        ScreenCapture.CaptureScreenshot(screenshotFilePath);
 
-        using (var fileStream = File.Open(screenshotFilePath, FileMode.Create))
-        {
-            var binary = new BinaryWriter(fileStream);
-            binary.Write(screenshotBytes);
-        }
-
-        string saveDataFilePath = Path.Combine(_savesPath, "SaveData");
+        string saveDataFilePath = Path.Combine(savePath, "SaveData.json");
         string json = JsonUtility.ToJson(storyData);
         File.WriteAllText(saveDataFilePath, json);
     }
